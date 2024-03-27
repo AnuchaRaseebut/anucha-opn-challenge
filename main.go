@@ -9,7 +9,7 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Please provide a command")
+		fmt.Println("Please provide a path to the file")
 		return
 	}
 
