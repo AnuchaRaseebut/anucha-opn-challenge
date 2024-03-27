@@ -3,7 +3,6 @@ package donation
 import (
 	"anucha-challenge/challenge-go/cipher"
 	"bufio"
-	_ "embed"
 	"encoding/csv"
 	"fmt"
 	"io"
@@ -15,6 +14,7 @@ import (
 
 func GetDonation(filepath string) (donations []Donation, err error) {
 	decryptPath := strings.TrimSuffix(filepath, ".rot128")
+	// read encrypted file
 	encryptedFile, err := os.Open(filepath)
 	if err != nil {
 		log.Printf("Failed to open encrypt file: %v\n", err)
@@ -28,6 +28,7 @@ func GetDonation(filepath string) (donations []Donation, err error) {
 		return
 	}
 
+	// create csv file use to rechecking data
 	decryptedFile, err := os.Create(decryptPath)
 	if err != nil {
 		fmt.Printf("Failed to create decrypted file: %v\n", err)
@@ -44,7 +45,7 @@ func GetDonation(filepath string) (donations []Donation, err error) {
 		os.Exit(1)
 	}
 
-	// Read the decrypted file
+	// Read the decrypted information use to map to go struct
 	decryptedFile.Seek(0, 0)
 	csvReader := csv.NewReader(decryptedFile)
 	rows, err := csvReader.ReadAll()

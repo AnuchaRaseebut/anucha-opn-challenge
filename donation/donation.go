@@ -44,7 +44,7 @@ func process(cfg Config, donations []Donation) (err error) {
 		summ.TotalReceived += float64(donate.AmountSubunits) / 100
 		summ.TopDonors = append(summ.TopDonors, Donor{Name: donate.Name, Total: float64(donate.AmountSubunits) / 100})
 		if err = createCharge(cfg, donate); err != nil {
-			fmt.Printf("Failed to create charge for %s: %v\n", donate.Name, err)
+			log.Printf("Failed to create charge for %s: %v\n", donate.Name, err)
 			summ.FalseDonate += float64(donate.AmountSubunits) / 100
 			continue
 		} else {

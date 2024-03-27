@@ -13,6 +13,7 @@ func createCharge(cfg Config, donate Donation) (err error) {
 		cfg.Secret,
 	)
 
+	// create token
 	token, create := &omise.Token{}, &operations.CreateToken{
 		Name:            donate.Name,
 		Number:          donate.CCNumber,
@@ -24,6 +25,7 @@ func createCharge(cfg Config, donate Donation) (err error) {
 		return
 	}
 
+	// create charge
 	charge, createCharge := &omise.Charge{}, &operations.CreateCharge{
 		Amount:   donate.AmountSubunits,
 		Currency: "thb",
